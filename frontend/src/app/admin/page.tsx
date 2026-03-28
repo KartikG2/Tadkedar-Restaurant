@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect, useCallback } from 'react';
+import { apiFetch } from '@/lib/api';
 
 interface Stats {
     orderCount: number;
@@ -23,9 +24,9 @@ export default function AdminDashboard() {
     const fetchStats = useCallback(async () => {
         try {
             const [ordersRes, reservationsRes, menuRes] = await Promise.all([
-                fetch('/api/orders'),
-                fetch('/api/reservations'),
-                fetch('/api/menu'),
+                apiFetch('/api/orders'),
+                apiFetch('/api/reservations'),
+                apiFetch('/api/menu'),
             ]);
 
             const orders = ordersRes.ok ? await ordersRes.json() : [];
@@ -59,7 +60,7 @@ export default function AdminDashboard() {
     const handleSeed = async () => {
         if (!confirm('This will wipe the current DB and seed it with dummy data. Proceed?')) return;
         try {
-            await fetch('/api/admin/seed', { method: 'POST' });
+            await apiFetch('/api/admin/seed', { method: 'POST' });
             alert('Database seeded successfully!');
             fetchStats();
         } catch (e) {

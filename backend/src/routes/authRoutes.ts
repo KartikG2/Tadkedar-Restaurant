@@ -26,28 +26,15 @@ router.post('/login', async (req, res): Promise<any> => {
             username: admin.username,
         });
         
-        res.cookie('admin_token', token, {
-            httpOnly: true,
-            secure: process.env.NODE_ENV === 'production',
-            sameSite: 'lax',
-            maxAge: 60 * 60 * 24 * 7 * 1000, // 7 days in ms
-            path: '/',
-        });
-        
-        return res.json({ success: true });
+        // Return token in response body instead of setting cookie
+        return res.json({ success: true, token });
     } catch (error) {
         return res.status(500).json({ error: 'Login failed' });
     }
 });
 
 router.post('/logout', (req, res): any => {
-    res.cookie('admin_token', '', {
-        httpOnly: true,
-        secure: process.env.NODE_ENV === 'production',
-        sameSite: 'lax',
-        maxAge: 0,
-        path: '/',
-    });
+    // No cookie clearing needed - just return success
     return res.json({ success: true });
 });
 

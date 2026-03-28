@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useCallback, useRef } from 'react';
 import Image from 'next/image';
+import { apiFetch } from '@/lib/api';
 
 interface Category {
     _id: string;
@@ -42,7 +43,7 @@ export default function AdminMenuPage() {
 
     const fetchData = useCallback(async () => {
         try {
-            const res = await fetch('/api/menu/admin');
+            const res = await apiFetch('/api/menu/admin');
             const data = await res.json();
             setItems(data.items || []);
             setCategories(data.categories || []);
@@ -65,7 +66,7 @@ export default function AdminMenuPage() {
         try {
             const fd = new FormData();
             fd.append('image', file);
-            const res = await fetch('/api/admin/upload', { method: 'POST', body: fd });
+            const res = await apiFetch('/api/admin/upload', { method: 'POST', body: fd });
             if (res.ok) {
                 const data = await res.json();
                 setForm((prev) => ({ ...prev, image: data.url }));
@@ -127,7 +128,7 @@ export default function AdminMenuPage() {
             image: form.image,
             ...(editItem ? { _id: editItem._id } : {}),
         };
-        const res = await fetch('/api/menu/admin', {
+        const res = await apiFetch('/api/menu/admin', {
             method: editItem ? 'PUT' : 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(payload),
@@ -137,7 +138,7 @@ export default function AdminMenuPage() {
 
     const handleDelete = async (id: string) => {
         if (!confirm('Delete this item?')) return;
-        await fetch(`/api/menu/admin?id=${id}`, { method: 'DELETE' });
+        await apiFetch(`/api/menu/admin?id=${id}`, { method: 'DELETE' });
         fetchData();
     };
 

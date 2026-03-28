@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect, useCallback } from 'react';
+import { apiFetch } from '@/lib/api';
 
 interface OrderItem {
     name: string;
@@ -55,7 +56,7 @@ export default function AdminHistoryPage() {
 
     const fetchOrders = useCallback(async () => {
         try {
-            const res = await fetch('/api/orders');
+            const res = await apiFetch('/api/orders');
             const data = await res.json();
             if (Array.isArray(data)) setOrders(data);
         } catch { /* ignore */ } finally {

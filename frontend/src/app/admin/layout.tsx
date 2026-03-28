@@ -1,7 +1,9 @@
 'use client';
 
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
+import { useEffect, useState } from 'react';
+import { apiFetch } from '@/lib/api';
 
 const sidebarLinks = [
     { href: '/admin', label: 'Overview', icon: '📊' },
@@ -17,7 +19,21 @@ export default function AdminLayout({
     children: React.ReactNode;
 }) {
     const pathname = usePathname();
+    const router = useRouter();
+    const [isAuthenticated, setIsAuthenticated] = useState(false);
     const isLoginPage = pathname === '/admin/login';
+
+    // Check authentication on mount
+    useEffect(() => {
+        if (!isLoginPage) {
+            const token = localStorage.getItem('admin_token');
+            if (!token) {
+                router.push('/admin/login');
+            } else {
+                setIsAuthenticated(true);
+            }
+        }
+    }, [isLoginPage, router]);
 
     // Login page — no sidebar, no header, elegant dark theme
     if (isLoginPage) {
@@ -29,7 +45,12 @@ export default function AdminLayout({
     }
 
     const handleLogout = async () => {
-        await fetch('/api/admin/logout', { method: 'POST' });
+        try {
+            await apiFetch('/api/admin/logout', { method: 'POST' });
+        } catch (error) {
+            console.error('Logout error:', error);
+        }
+        localStorage.removeItem('admin_token');
         window.location.href = '/admin/login';
     };
 

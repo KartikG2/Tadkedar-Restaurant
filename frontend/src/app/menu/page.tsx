@@ -3,6 +3,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { apiCall } from '@/lib/api';
 
 /* ── Types ─────────────────────────────────────────── */
 interface MenuItemData {
@@ -104,7 +105,7 @@ export default function MenuPage() {
 
     // Fetch menu from API
     const fetchMenu = useCallback(() => {
-        fetch('/api/menu')
+        apiCall('/api/menu')
             .then((r) => r.json())
             .then((items: MenuItemData[]) => {
                 if (!items || !Array.isArray(items) || items.length === 0) return;
@@ -175,7 +176,7 @@ export default function MenuPage() {
         e.preventDefault();
         setSubmitting(true);
         try {
-            const res = await fetch('/api/orders', {
+            const res = await apiCall('/api/orders', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({

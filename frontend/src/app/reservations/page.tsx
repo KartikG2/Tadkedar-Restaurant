@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
+import { apiFetch } from '@/lib/api';
 
 export default function ReservationsPage() {
     const [submitted, setSubmitted] = useState(false);
@@ -21,7 +22,7 @@ export default function ReservationsPage() {
         setSubmitting(true);
 
         try {
-            const res = await fetch('/api/reservations', {
+            const res = await apiFetch('/api/reservations', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ ...formData, guests: parseInt(formData.guests) }),

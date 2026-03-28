@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect, useCallback } from 'react';
+import { apiFetch } from '@/lib/api';
 
 interface ReservationType {
     _id: string;
@@ -27,7 +28,7 @@ export default function AdminReservationsPage() {
 
     const fetchReservations = useCallback(async () => {
         try {
-            const res = await fetch('/api/reservations');
+            const res = await apiFetch('/api/reservations');
             const data = await res.json();
             setReservations(data);
         } catch { /* ignore */ } finally {
@@ -44,7 +45,7 @@ export default function AdminReservationsPage() {
     }, [fetchReservations]);
 
     const updateStatus = async (id: string, status: string) => {
-        await fetch(`/api/reservations/${id}`, {
+        await apiFetch(`/api/reservations/${id}`, {
             method: 'PATCH',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ status }),

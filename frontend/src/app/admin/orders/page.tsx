@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect, useCallback } from 'react';
+import { apiFetch } from '@/lib/api';
 
 interface OrderItem {
     menuItemId: string;
@@ -52,7 +53,7 @@ export default function AdminOrdersPage() {
 
     const fetchOrders = useCallback(async () => {
         try {
-            const res = await fetch('/api/orders');
+            const res = await apiFetch('/api/orders');
             const data = await res.json();
             if (Array.isArray(data)) setOrders(data);
         } catch { /* ignore */ } finally {
@@ -69,7 +70,7 @@ export default function AdminOrdersPage() {
     }, [fetchOrders]);
 
     const updateStatus = async (id: string, status: string) => {
-        await fetch(`/api/orders/${id}`, {
+        await apiFetch(`/api/orders/${id}`, {
             method: 'PATCH',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ status }),

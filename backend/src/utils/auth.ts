@@ -36,7 +36,8 @@ export interface AuthRequest extends Request {
 
 export const authenticateAdmin = async (req: AuthRequest, res: Response, next: NextFunction): Promise<void> => {
     try {
-        const token = req.cookies?.admin_token || req.headers.authorization?.split(' ')[1];
+        // Only check Authorization header (no cookies for cross-domain)
+        const token = req.headers.authorization?.split(' ')[1];
         if (!token) {
             res.status(401).json({ error: 'Unauthorized: No token provided' });
             return;

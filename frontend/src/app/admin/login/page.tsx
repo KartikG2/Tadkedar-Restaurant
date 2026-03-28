@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { apiFetch } from '@/lib/api';
 
 export default function AdminLoginPage() {
     const [username, setUsername] = useState('');
@@ -14,13 +15,18 @@ export default function AdminLoginPage() {
         setLoading(true);
 
         try {
-            const res = await fetch('/api/admin/login', {
+            const res = await apiFetch('/api/admin/login', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ username, password }),
             });
 
             if (res.ok) {
+                const data = await res.json();
+                // Save token to localStorage
+                if (data.token) {
+                    localStorage.setItem('admin_token', data.token);
+                }
                 window.location.href = '/admin';
             } else {
                 const data = await res.json();
