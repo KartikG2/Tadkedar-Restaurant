@@ -123,7 +123,7 @@ export default function AdminOrdersPage() {
                 <div className="flex gap-2">
                     <button
                         onClick={() => setShowCompleted(false)}
-                        className={`px-4 py-2 text-xs tracking-[0.1em] uppercase transition-colors ${!showCompleted
+                        className={`px-4 py-2 text-xs tracking-widest uppercase transition-colors ${!showCompleted
                             ? 'bg-charcoal text-ivory'
                             : 'border border-border text-stone hover:text-charcoal'
                             }`}
@@ -132,7 +132,7 @@ export default function AdminOrdersPage() {
                     </button>
                     <button
                         onClick={() => setShowCompleted(true)}
-                        className={`px-4 py-2 text-xs tracking-[0.1em] uppercase transition-colors ${showCompleted
+                        className={`px-4 py-2 text-xs tracking-widest uppercase transition-colors ${showCompleted
                             ? 'bg-charcoal text-ivory'
                             : 'border border-border text-stone hover:text-charcoal'
                             }`}
@@ -164,7 +164,7 @@ export default function AdminOrdersPage() {
                             >
                                 <div className="flex items-center gap-3 sm:gap-4 w-full sm:w-auto flex-1 min-w-0">
                                     {/* Status icon */}
-                                    <span className="text-lg flex-shrink-0 self-start sm:self-center">
+                                    <span className="text-lg shrink-0 self-start sm:self-center">
                                         {statusIcons[order.status] || '•'}
                                     </span>
                                     <div className="min-w-0 flex-1">
@@ -185,7 +185,7 @@ export default function AdminOrdersPage() {
                                     </div>
                                 </div>
 
-                                <div className="flex items-center justify-between w-full sm:w-auto gap-4 flex-shrink-0 mt-2 sm:mt-0 pt-2 sm:pt-0 border-t border-border/50 sm:border-0 pl-8 sm:pl-0">
+                                <div className="flex items-center justify-between w-full sm:w-auto gap-4 shrink-0 mt-2 sm:mt-0 pt-2 sm:pt-0 border-t border-border/50 sm:border-0 pl-8 sm:pl-0">
                                     <div className="text-left sm:text-right flex sm:block items-center gap-3">
                                         <p className="text-sm font-semibold text-charcoal">₹{order.total}</p>
                                         <p className="text-[10px] text-stone">{timeSince(order.createdAt)}</p>
@@ -265,7 +265,7 @@ export default function AdminOrdersPage() {
                                                 {nextStatus && (
                                                     <button
                                                         onClick={() => updateStatus(order._id, nextStatus)}
-                                                        className="px-5 py-2 bg-gold text-white text-xs tracking-[0.1em] uppercase hover:bg-gold-dark transition-colors flex items-center gap-2"
+                                                        className="px-5 py-2 bg-gold text-white text-xs tracking-widest uppercase hover:bg-gold-dark transition-colors flex items-center gap-2"
                                                     >
                                                         {statusIcons[nextStatus]} Mark as {nextStatus}
                                                     </button>

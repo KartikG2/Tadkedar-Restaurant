@@ -158,7 +158,7 @@ export default function AdminMenuPage() {
             <div className="flex items-center justify-between mb-8">
                 <h1 className="font-serif text-2xl text-charcoal">Menu Items</h1>
                 <button onClick={openAdd}
-                    className="px-5 py-2.5 bg-charcoal text-ivory text-xs tracking-[0.1em] uppercase hover:bg-charcoal-light transition-colors">
+                    className="px-5 py-2.5 bg-charcoal text-ivory text-xs tracking-widest uppercase hover:bg-charcoal-light transition-colors">
                     + Add Item
                 </button>
             </div>
@@ -354,11 +354,11 @@ export default function AdminMenuPage() {
                             {/* Actions */}
                             <div className="flex gap-3 pt-2">
                                 <button type="submit"
-                                    className="flex-1 py-3 bg-gold text-white text-xs tracking-[0.1em] uppercase hover:bg-gold-dark transition-colors">
+                                    className="flex-1 py-3 bg-gold text-white text-xs tracking-widest uppercase hover:bg-gold-dark transition-colors">
                                     {editItem ? 'Update Item' : 'Add Item'}
                                 </button>
                                 <button type="button" onClick={closeModal}
-                                    className="px-6 py-3 border border-border text-xs text-stone tracking-[0.1em] uppercase hover:text-charcoal hover:border-charcoal transition-colors">
+                                    className="px-6 py-3 border border-border text-xs text-stone tracking-widest uppercase hover:text-charcoal hover:border-charcoal transition-colors">
                                     Cancel
                                 </button>
                             </div>

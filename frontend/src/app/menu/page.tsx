@@ -3,7 +3,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { apiCall } from '@/lib/api';
+import { apiFetch } from '@/lib/api';
 
 /* ── Types ─────────────────────────────────────────── */
 interface MenuItemData {
@@ -105,8 +105,8 @@ export default function MenuPage() {
 
     // Fetch menu from API
     const fetchMenu = useCallback(() => {
-        apiCall('/api/menu')
-            .then((r) => r.json())
+        apiFetch('/api/menu')
+            .then((r: Response) => r.json())
             .then((items: MenuItemData[]) => {
                 if (!items || !Array.isArray(items) || items.length === 0) return;
                 // Group items by category
@@ -176,7 +176,7 @@ export default function MenuPage() {
         e.preventDefault();
         setSubmitting(true);
         try {
-            const res = await apiCall('/api/orders', {
+            const res = await apiFetch('/api/orders', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
@@ -258,11 +258,11 @@ export default function MenuPage() {
                 <p className="text-stone text-sm py-8 text-center">Your cart is empty</p>
             ) : (
                 <>
-                    <div className="space-y-4 mb-6 max-h-[300px] overflow-y-auto pr-1">
+                    <div className="space-y-4 mb-6 max-h-75 overflow-y-auto pr-1">
                         {cart.map((item) => (
                             <div key={item.id} className="flex gap-3 items-start">
                                 {item.image && (
-                                    <div className="w-12 h-12 rounded-sm overflow-hidden flex-shrink-0 relative">
+                                    <div className="w-12 h-12 rounded-sm overflow-hidden shrink-0 relative">
                                         <Image src={item.image} alt={item.name} fill className="object-cover" sizes="48px" unoptimized />
                                     </div>
                                 )}
@@ -274,7 +274,7 @@ export default function MenuPage() {
                                         )}
                                         <div className="flex items-center gap-1.5">
                                             <button onClick={() => updateQuantity(item.id, -1)} className="w-5 h-5 rounded-full border border-border text-[10px] flex items-center justify-center text-stone hover:text-charcoal hover:border-charcoal transition-colors">−</button>
-                                            <span className="text-xs text-charcoal min-w-[14px] text-center">{item.quantity}</span>
+                                            <span className="text-xs text-charcoal min-w-3.5 text-center">{item.quantity}</span>
                                             <button onClick={() => updateQuantity(item.id, 1)} className="w-5 h-5 rounded-full border border-border text-[10px] flex items-center justify-center text-stone hover:text-charcoal hover:border-charcoal transition-colors">+</button>
                                         </div>
                                     </div>
@@ -345,7 +345,7 @@ export default function MenuPage() {
                 <div className="absolute inset-0 z-0">
                     <Image src="/images/starters.png" alt="Menu" fill className="object-cover opacity-20" sizes="100vw" quality={60} priority />
                 </div>
-                <div className="absolute inset-0 bg-gradient-to-b from-charcoal/80 to-charcoal z-10" />
+                <div className="absolute inset-0 bg-linear-to-b from-charcoal/80 to-charcoal z-10" />
                 <div className="relative z-20 max-w-4xl mx-auto text-center">
                     <p className="text-xs tracking-[0.3em] uppercase text-gold mb-4 animate-fade-in-up">Explore & Order</p>
                     <h1 className="font-serif text-4xl md:text-6xl text-ivory mb-6 animate-fade-in-up-delay-1">Our Menu</h1>
@@ -372,7 +372,7 @@ export default function MenuPage() {
             </section>
 
             {/* Category Navigation */}
-            <nav className="sticky top-[72px] z-30 bg-ivory/95 backdrop-blur-sm border-b border-border">
+            <nav className="sticky top-18 z-30 bg-ivory/95 backdrop-blur-sm border-b border-border">
                 <div className="max-w-6xl mx-auto px-6 py-3 flex gap-6 overflow-x-auto">
                     {menu.map((cat) => (
                         <a
@@ -484,7 +484,7 @@ function DishCard({
         <div className="group bg-white border border-border hover:border-gold/30 transition-all duration-300 overflow-hidden flex flex-col">
             {/* Dish Image */}
             {item.image && (
-                <div className="relative aspect-[16/10] overflow-hidden">
+                <div className="relative aspect-16/10 overflow-hidden">
                     <Image
                         src={item.image}
                         alt={item.name}
@@ -541,7 +541,7 @@ function DishCard({
                     ) : (
                         <button
                             onClick={() => onAdd(item, selectedPortion)}
-                            className="w-full py-2 border border-charcoal text-charcoal text-xs tracking-[0.1em] uppercase hover:bg-charcoal hover:text-ivory transition-all duration-300"
+                            className="w-full py-2 border border-charcoal text-charcoal text-xs tracking-widest uppercase hover:bg-charcoal hover:text-ivory transition-all duration-300"
                         >
                             Add to Cart
                         </button>

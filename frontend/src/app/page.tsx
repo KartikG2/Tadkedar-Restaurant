@@ -122,7 +122,7 @@ export default function HomePage() {
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-5 animate-fade-in-up-delay-2 w-full sm:w-auto">
             <Link
               href="/reservations"
-              className="group relative px-10 sm:px-14 py-4 sm:py-[18px] text-xs sm:text-sm tracking-[0.2em] uppercase font-medium transition-all duration-500 min-w-[220px] sm:min-w-[260px] overflow-hidden"
+              className="group relative px-10 sm:px-14 py-4 sm:py-4.5 text-xs sm:text-sm tracking-[0.2em] uppercase font-medium transition-all duration-500 min-w-55 sm:min-w-65 overflow-hidden"
               style={{ backgroundColor: '#c9a96a', color: '#1F1F1F' }}
             >
               <span className="relative z-10 transition-colors duration-500 group-hover:text-white">
@@ -132,7 +132,7 @@ export default function HomePage() {
             </Link>
             <Link
               href="/menu"
-              className="px-10 sm:px-14 py-4 sm:py-[18px] border border-white/15 text-[#f5f5f5]/60 text-xs sm:text-sm tracking-[0.2em] uppercase transition-all duration-500 min-w-[220px] sm:min-w-[260px] hover:border-gold/60 hover:text-gold backdrop-blur-sm hover:shadow-[0_0_30px_rgba(201,169,106,0.1)]"
+              className="px-10 sm:px-14 py-4 sm:py-4.5 border border-white/15 text-[#f5f5f5]/60 text-xs sm:text-sm tracking-[0.2em] uppercase transition-all duration-500 min-w-55 sm:min-w-65 hover:border-gold/60 hover:text-gold backdrop-blur-sm hover:shadow-[0_0_30px_rgba(201,169,106,0.1)]"
             >
               Explore Menu
             </Link>
@@ -158,7 +158,7 @@ export default function HomePage() {
         <div className="max-w-6xl mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 lg:gap-32 items-center">
             <ScrollReveal direction="left" duration={900}>
-              <div className="relative aspect-[3/4] overflow-hidden">
+              <div className="relative aspect-3/4 overflow-hidden">
                 <Image
                   src="/images/kitchen.png"
                   alt="Fresh food preparation at Tadkedar"
@@ -254,12 +254,12 @@ export default function HomePage() {
             ].map((dish, i) => (
               <ScrollReveal key={dish.name} delay={i * 200} duration={800}>
                 <div className="group overflow-hidden">
-                  <div className="relative aspect-[4/3] overflow-hidden mb-6">
+                  <div className="relative aspect-4/3 overflow-hidden mb-6">
                     <Image
                       src={dish.image}
                       alt={dish.name}
                       fill
-                      className="object-cover transition-transform duration-[1s] group-hover:scale-105"
+                      className="object-cover transition-transform duration-1000 group-hover:scale-105"
                       sizes="(max-width: 768px) 100vw, 33vw"
                       quality={80}
                     />
@@ -324,7 +324,7 @@ export default function HomePage() {
         <div className="max-w-6xl mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-24 items-center">
             <ScrollReveal direction="left">
-              <div className="relative aspect-[4/5] overflow-hidden">
+              <div className="relative aspect-4/5 overflow-hidden">
                 <Image
                   src="/images/dal-makhani.png"
                   alt="Creamy Dal Makhani"
@@ -371,7 +371,7 @@ export default function HomePage() {
               </div>
             </ScrollReveal>
             <ScrollReveal direction="right" className="order-1 md:order-2">
-              <div className="relative aspect-[4/5] overflow-hidden">
+              <div className="relative aspect-4/5 overflow-hidden">
                 <Image
                   src="/images/naan.png"
                   alt="Freshly baked artisan naan breads"

@@ -192,7 +192,7 @@ export default function AdminHistoryPage() {
                                     <p className="text-sm font-medium text-charcoal truncate">{order.customerName}</p>
                                 </div>
                             </div>
-                            <div className="flex items-center justify-between w-full sm:w-auto gap-4 flex-shrink-0 mt-2 sm:mt-0 pt-2 sm:pt-0 border-t border-border/50 sm:border-0">
+                            <div className="flex items-center justify-between w-full sm:w-auto gap-4 shrink-0 mt-2 sm:mt-0 pt-2 sm:pt-0 border-t border-border/50 sm:border-0">
                                 <span className="text-sm font-medium text-charcoal">₹{order.total}</span>
                                 <span className="text-xs text-stone">{formatTime(order.createdAt)}</span>
                                 <span className="text-stone text-xs ml-auto sm:ml-0">{expandedOrder === order._id ? '▲' : '▼'}</span>
@@ -231,7 +231,7 @@ export default function AdminHistoryPage() {
 
                                 {/* Items Table */}
                                 <div className="border border-border bg-white overflow-x-auto">
-                                    <table className="w-full text-sm min-w-[400px]">
+                                    <table className="w-full text-sm min-w-100">
                                         <thead>
                                             <tr className="border-b border-border">
                                                 <th className="text-left text-[10px] text-stone tracking-wider uppercase px-4 py-2.5">Item</th>
@@ -243,7 +243,7 @@ export default function AdminHistoryPage() {
                                         <tbody>
                                             {order.items.map((item, i) => (
                                                 <tr key={i} className="border-b border-border/50">
-                                                    <td className="px-4 py-2.5 text-charcoal max-w-[150px] truncate">{item.name}</td>
+                                                    <td className="px-4 py-2.5 text-charcoal max-w-37.5 truncate">{item.name}</td>
                                                     <td className="px-4 py-2.5 text-center text-stone">{item.portion || 'Full'}</td>
                                                     <td className="px-4 py-2.5 text-center text-charcoal">{item.quantity}</td>
                                                     <td className="px-4 py-2.5 text-right text-charcoal">₹{item.price * item.quantity}</td>

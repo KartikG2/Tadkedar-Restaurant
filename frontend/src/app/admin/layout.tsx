@@ -127,7 +127,7 @@ export default function AdminLayout({
             </div>
 
             {/* Main Content */}
-            <div className="lg:ml-60 pt-[112px] lg:pt-16">
+            <div className="lg:ml-60 pt-28 lg:pt-16">
                 <div className="pt-0 lg:pt-0">
                     <div className="max-w-6xl mx-auto p-6 lg:p-10">
                         {children}
