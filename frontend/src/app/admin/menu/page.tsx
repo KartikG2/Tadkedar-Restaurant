@@ -143,7 +143,7 @@ export default function AdminMenuPage() {
     };
 
     const toggleAvailability = async (item: MenuItemType) => {
-        await fetch('/api/menu/admin', {
+        await apiFetch('/api/menu/admin', {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ _id: item._id, isAvailable: !item.isAvailable }),

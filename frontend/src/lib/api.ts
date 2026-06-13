@@ -26,13 +26,24 @@ export async function apiFetch(
 ): Promise<Response> {
     const url = `${BASE_URL}${path}`;
     
-    return fetch(url, {
+    const response = await fetch(url, {
         ...options,
         headers: {
             ...getAuthHeaders(),
             ...(options.headers || {}),
         },
     });
+
+    if (response.status === 401) {
+        if (typeof window !== 'undefined') {
+            localStorage.removeItem('admin_token');
+            if (!window.location.pathname.includes('/admin/login')) {
+                window.location.href = '/admin/login';
+            }
+        }
+    }
+
+    return response;
 }
 
 export default apiFetch;
