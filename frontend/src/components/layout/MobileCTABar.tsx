@@ -1,11 +1,37 @@
 'use client';
 
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { useState, useEffect } from 'react';
 
 export default function MobileCTABar() {
-    const pathname = usePathname();
-    if (pathname === '/menu' || pathname === '/order') return null;
+    const [hasCartItems, setHasCartItems] = useState(false);
+
+    useEffect(() => {
+        function checkCart() {
+            try {
+                const saved = localStorage.getItem('tadkedar_cart');
+                const cart = saved ? JSON.parse(saved) : [];
+                setHasCartItems(Array.isArray(cart) && cart.length > 0);
+            } catch {
+                setHasCartItems(false);
+            }
+        }
+
+        checkCart();
+
+        // Listen for changes from the menu page
+        window.addEventListener('storage', checkCart);
+
+        // Also poll every second to catch same-tab changes
+        const interval = setInterval(checkCart, 1000);
+
+        return () => {
+            window.removeEventListener('storage', checkCart);
+            clearInterval(interval);
+        };
+    }, []);
+
+    if (hasCartItems) return null;
 
     return (
         <div className="fixed bottom-0 left-0 right-0 z-40 lg:hidden bg-charcoal/95 backdrop-blur-md border-t border-ivory/10">
