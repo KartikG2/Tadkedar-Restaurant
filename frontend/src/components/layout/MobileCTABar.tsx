@@ -1,8 +1,12 @@
 'use client';
 
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 
 export default function MobileCTABar() {
+    const pathname = usePathname();
+    if (pathname === '/menu' || pathname === '/order') return null;
+
     return (
         <div className="fixed bottom-0 left-0 right-0 z-40 lg:hidden bg-charcoal/95 backdrop-blur-md border-t border-ivory/10">
             <div className="flex">

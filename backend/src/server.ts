@@ -1,8 +1,8 @@
-import app from './app';
 import dotenv from 'dotenv';
-import connectDB from './utils/mongodb';
-
 dotenv.config();
+
+import app from './app';
+import connectDB from './utils/mongodb';
 
 const PORT = process.env.PORT || 5000;
 

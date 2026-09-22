@@ -1,20 +1,14 @@
 import nodemailer from 'nodemailer';
 import { siteConfig } from './config';
 
-// Lazy-init transporter — only create when actually sending
-let _transporter: nodemailer.Transporter | null = null;
-
 function getTransporter() {
-  if (!_transporter && process.env.EMAIL_USER && process.env.EMAIL_PASS) {
-    _transporter = nodemailer.createTransport({
-      service: 'gmail',
-      auth: {
-        user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_PASS,
-      },
-    });
-  }
-  return _transporter;
+  const user = process.env.EMAIL_USER;
+  const pass = process.env.EMAIL_PASS;
+  if (!user || !pass) return null;
+  return nodemailer.createTransport({
+    service: 'gmail',
+    auth: { user, pass },
+  });
 }
 
 function getEmailEnabled() {

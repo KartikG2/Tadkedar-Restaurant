@@ -391,8 +391,18 @@ export default function MenuPage() {
             </nav>
 
             {/* Menu + Cart Layout */}
-            <section className="max-w-7xl mx-auto px-6 py-12 lg:py-16">
-                <div className="grid grid-cols-1 lg:grid-cols-[1fr_340px] gap-12">
+            <section className="max-w-7xl mx-auto px-6 py-12 pb-28 lg:py-16 lg:pb-16">
+                {/* Desktop: checkout mode — hide menu, show centered form */}
+                {showCheckout ? (
+                    <div className="hidden lg:flex justify-center">
+                        <div className="w-full max-w-xl bg-white border border-border p-8">
+                            {renderCartContent()}
+                        </div>
+                    </div>
+                ) : null}
+
+                {/* Desktop: browse mode — 2-col grid */}
+                <div className={showCheckout ? 'lg:hidden' : 'grid grid-cols-1 lg:grid-cols-[1fr_340px] gap-12'}>
                     {/* Menu Items */}
                     <div>
                         {menu.map((cat) => (
@@ -422,7 +432,7 @@ export default function MenuPage() {
                         ))}
                     </div>
 
-                    {/* Cart Sidebar — Desktop */}
+                    {/* Cart Sidebar — Desktop browse mode only */}
                     <div className="hidden lg:block">
                         <div className="sticky top-36 bg-white border border-border p-6">
                             {renderCartContent()}
@@ -447,11 +457,11 @@ export default function MenuPage() {
             {/* Mobile Cart Sheet */}
             {showMobileCart && (
                 <div className="lg:hidden fixed inset-0 z-50">
-                    <div className="absolute inset-0 bg-charcoal/50" onClick={() => setShowMobileCart(false)} />
+                    <div className="absolute inset-0 bg-charcoal/50" onClick={() => { setShowMobileCart(false); setShowCheckout(false); }} />
                     <div className="absolute bottom-0 inset-x-0 bg-white max-h-[85vh] overflow-y-auto p-6 rounded-t-2xl">
                         <div className="flex items-center justify-between mb-4">
                             <h3 className="font-serif text-lg text-charcoal">Your Order</h3>
-                            <button onClick={() => setShowMobileCart(false)} className="text-stone hover:text-charcoal text-lg">✕</button>
+                            <button onClick={() => { setShowMobileCart(false); setShowCheckout(false); }} className="text-stone hover:text-charcoal text-lg">✕</button>
                         </div>
                         {renderCartContent()}
                     </div>
